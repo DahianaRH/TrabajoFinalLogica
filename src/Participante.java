@@ -1,4 +1,5 @@
 public class Participante {
+
     private String nombre;
     private String sexo;
     private int edad;
@@ -20,4 +21,10 @@ public class Participante {
     public int getEdad() {
         return edad;
     }
+
+    @Override
+    public String toString() {
+        return "Participante [nombre=" + nombre + ", sexo=" + sexo + ", edad=" + edad + "]";
+    }
+
 }

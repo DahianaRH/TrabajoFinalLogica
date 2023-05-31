@@ -3,6 +3,9 @@ public class NodoDoble {
     private NodoDoble siguiente;
     private NodoDoble anterior;
 
+    public NodoDoble(){
+    }
+
     public NodoDoble(Participante participante) {
         this.participante = participante;
         this.siguiente = null;
