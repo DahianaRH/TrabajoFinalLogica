@@ -7,11 +7,12 @@ public class ListaDoblementeLigada {
         cola = iterador = cabeza;
     }
 
-    public void agregarParticipante(Participante participante) {
+    public String agregarParticipante(Participante participante) {
         NodoDoble nuevoNodo = new NodoDoble(participante);
         cola.setSiguiente(nuevoNodo);
         nuevoNodo.setAnterior(cola);
         cola = nuevoNodo;
+        return "Participante agregado satisfactoriamente!";
     }
 
     public Participante recorrerHaciaDerecha() {
@@ -22,9 +23,9 @@ public class ListaDoblementeLigada {
         return iterador.getParticipante();
     }
 
-    public void ordenarPorEdad() {
+    public String ordenarPorEdad() {
         if (cabeza.getSiguiente() == null || cabeza.getSiguiente().getSiguiente() == null) {
-            return; // No hay elementos o solo hay uno, no es necesario ordenar
+            return "Lista vacía o con sólo un participante. No se requiere ordenar!";
         }
         boolean intercambioRealizado;
         do {
@@ -34,8 +35,8 @@ public class ListaDoblementeLigada {
             while (siguiente != null) {
                 if (actual.getParticipante().getEdad() > siguiente.getParticipante().getEdad()) {
                     intercambioRealizado = true;
-                    actual.getAnterior().setSiguiente(siguiente);            
-                    siguiente.setAnterior(actual.getAnterior());                
+                    actual.getAnterior().setSiguiente(siguiente);
+                    siguiente.setAnterior(actual.getAnterior());
                     actual.setAnterior(siguiente);
                     actual.setSiguiente(siguiente.getSiguiente());
                     if (siguiente.getSiguiente() != null) {
@@ -49,20 +50,19 @@ public class ListaDoblementeLigada {
                 }
             }
         } while (intercambioRealizado);
+        return "Lista ordenada satisfactoriamente!";
     }
 
-    // public void generarPilas() {
-    // Pila pilaHombres = new Pila();
-    // Pila pilaMujeres = new Pila();
+    public Pila generarPilaPorSexo(String sexo) {
+        Pila nuevaPila = new Pila();
+        Participante participante = this.recorrerHaciaDerecha();
+        while (participante != null) {
+            if (participante.getEdad() > 18 && participante.getSexo().equalsIgnoreCase(sexo)) {
+                nuevaPila.apilar(participante.getNombre());
+            }
+            participante = this.recorrerHaciaDerecha();
+        }
+        return nuevaPila;
+    }
 
-    // NodoDoble actual = cabeza;
-    // while (actual != null) {
-    // Participante participante = actual.getParticipante();
-    // if (participante.getSexo().equalsIgnoreCase("m")) {
-    // pilaHombres.push(participante.getNombre());
-    // } else if (participante.getSexo().equalsIgnoreCase("f")) {
-    // pilaMujeres.push(participante.getNombre());
-    // }
-    // actual = actual.getSiguiente();
-    // }
 }
